@@ -15,7 +15,7 @@ import (
 func SendEmail(task *models.Task) error {
 	sendgridKey := os.Getenv("SENDGRID_API_KEY")
 
-	from := mail.NewEmail("Todo app", "anikkatiyar8799@gmail.com")
+	from := mail.NewEmail("Todo app", "home.katiyar@gmail.com")
 	to := mail.NewEmail("User", task.AlertEmail)
 	subject := "Your task ||" + *task.Title + "|| due soon"
 	plainTextContent := "Your task" + *task.Title + " is due at " + task.DueDate.String()
