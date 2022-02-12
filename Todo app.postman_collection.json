@@ -1,0 +1,215 @@
+{
+	"info": {
+		"_postman_id": "0c4874e5-ed41-4fc1-933b-8a7b6e131af5",
+		"name": "Todo app",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "Signup",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"name\": \"anik\",\r\n    \"email\": \"anikkatiyar1234@gmail.com\",\r\n    \"password\": \"Anik0807\",\r\n    \"userType\":\"USER\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8000/users/signup",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8000",
+					"path": [
+						"users",
+						"signup"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Login",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"var jsonData = JSON.parse(responseBody);\r",
+							"postman.setGlobalVariable(\"token\", jsonData.access_token);"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"email\": \"anikkatiyar1234@gmail.com\",\r\n    \"password\": \"Anik0807\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8000/users/login",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8000",
+					"path": [
+						"users",
+						"login"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Create Task",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"var jsonData = JSON.parse(responseBody);\r",
+							"postman.setGlobalVariable(\"taskId\", jsonData.ID);"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "token",
+						"value": "{{token}}",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"title\": \"Complete some work soon\",\r\n    \"description\": \"This is a test run let's go\",\r\n    \"dueDate\":  \"2022-02-12T22:17:24+05:30\",\r\n    \"alertBefore\": 2\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8000/tasks",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8000",
+					"path": [
+						"tasks"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Update Task",
+			"request": {
+				"method": "PUT",
+				"header": [
+					{
+						"key": "token",
+						"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJFbWFpbCI6ImFuaWszQGdtYWlsLmNvbSIsIk5hbWUiOiJhbmlrIiwiVWlkIjoiNjIwNzdmMDljYjM5Zjg1Y2IzODIwN2JiIiwiVXNlcl90eXBlIjoiVVNFUiIsImV4cCI6MTY0NDc1OTgwMH0.6_RVVWeOs5VCZgdo2EzTIMrA3CuudJvq6BCBKfnaPxE",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"title\": \"anik\",\r\n    \"description\": \"we f w w ef w ef w wtrhrh ef w fetbhrt\",\r\n    \"dueDate\": \"2022-02-11T09:34:01Z\",\r\n    \"alertBefore\": 10,\r\n    \"alertEmail\": \"anik3@gmail.com\",\r\n    \"AlertAt\": \"2022-02-12T23:34:01Z\",\r\n    \"createdAt\": \"2022-02-12T15:57:24+05:30\",\r\n    \"status\": \"pending\",\r\n    \"subTasks\": [\r\n        {\r\n            \"title\": \"rwfw\",\r\n            \"description\": \"425r2352345r 42 5 231\",\r\n            \"status\": \"pending\"\r\n        },\r\n        {\r\n            \"title\": \"rwfw23r\",\r\n            \"description\": \"425r2352345r 42 5 231\",\r\n            \"status\": \"pending\"\r\n        },\r\n        {\r\n            \"title\": \"rwfwr23r\",\r\n            \"description\": \"425r2352345r 42 5 231\",\r\n            \"status\": \"pending\"\r\n        }\r\n    ]\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8000/tasks/:task_id",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8000",
+					"path": [
+						"tasks",
+						":task_id"
+					],
+					"variable": [
+						{
+							"key": "task_id",
+							"value": "6207b9532d9832776415957b"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get Tasks",
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "token",
+						"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJFbWFpbCI6ImFuaWszQGdtYWlsLmNvbSIsIk5hbWUiOiJhbmlrIiwiVWlkIjoiNjIwNzdmMDljYjM5Zjg1Y2IzODIwN2JiIiwiVXNlcl90eXBlIjoiVVNFUiIsImV4cCI6MTY0NDc1OTgwMH0.6_RVVWeOs5VCZgdo2EzTIMrA3CuudJvq6BCBKfnaPxE",
+						"type": "text"
+					},
+					{
+						"key": "type",
+						"value": "completed",
+						"type": "text",
+						"disabled": true
+					},
+					{
+						"key": "search",
+						"value": "progress",
+						"type": "text",
+						"disabled": true
+					},
+					{
+						"key": "dueDate",
+						"value": "Next week",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "http://localhost:8000/tasks",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8000",
+					"path": [
+						"tasks"
+					],
+					"query": [
+						{
+							"key": "token",
+							"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJFbWFpbCI6ImFuaWszQGdtYWlsLmNvbSIsIk5hbWUiOiJhbmlrIiwiVWlkIjoiNjIwNzdmMDljYjM5Zjg1Y2IzODIwN2JiIiwiVXNlcl90eXBlIjoiVVNFUiIsImV4cCI6MTY0NDc0NTg5OH0.WxEHI-r2i8F8JIK8JIOCqEe8GVgzhMkH3jRiEG3dO1k",
+							"disabled": true
+						}
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}
