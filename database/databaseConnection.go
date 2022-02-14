@@ -12,7 +12,7 @@ import (
 // GetClient is a function that initializes a connection with the database
 func GetClient() *mongo.Client {
 	// Set client options
-	clientOptions := options.Client().ApplyURI("mongodb://localhost:27017") // Connect to MongoDB
+	clientOptions := options.Client().ApplyURI("MONGODB_URL") // Connect to MongoDB
 	client, err := mongo.Connect(context.TODO(), clientOptions)
 	if err != nil {
 		log.Fatal(err)
@@ -32,7 +32,7 @@ var Client *mongo.Client = GetClient()
 //OpenCollection is a  function makes a connection with a collection in the database
 func OpenCollection(client *mongo.Client, collectionName string) *mongo.Collection {
 
-	var collection *mongo.Collection = client.Database("cluster0").Collection(collectionName)
+	var collection *mongo.Collection = client.Database("Cluster0").Collection(collectionName)
 
 	return collection
 }
