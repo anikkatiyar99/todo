@@ -4,6 +4,7 @@ import (
 	"context"
 	"fmt"
 	"log"
+	"os"
 
 	"go.mongodb.org/mongo-driver/mongo"
 	"go.mongodb.org/mongo-driver/mongo/options"
@@ -12,7 +13,7 @@ import (
 // GetClient is a function that initializes a connection with the database
 func GetClient() *mongo.Client {
 	// Set client options
-	clientOptions := options.Client().ApplyURI("MONGODB_URL") // Connect to MongoDB
+	clientOptions := options.Client().ApplyURI(os.Getenv("MONGODB_URL")) // Connect to MongoDB
 	client, err := mongo.Connect(context.TODO(), clientOptions)
 	if err != nil {
 		log.Fatal(err)
