@@ -130,7 +130,7 @@ func GetTasks() gin.HandlerFunc {
 		var ctx, cancel = context.WithTimeout(context.Background(), 100*time.Second)
 		defer cancel()
 
-		var task models.Task
+		//var task models.Task
 		userId := c.GetString("uid")
 		filter := bson.M{}
 
@@ -198,17 +198,13 @@ func GetTasks() gin.HandlerFunc {
 			return
 		}
 
-		taskList := []models.Task{}
-		for cursor.Next(ctx) {
-			err = cursor.Decode(&task)
-			if err != nil {
-				c.JSON(http.StatusInternalServerError, gin.H{"error": err.Error()})
-				return
-			}
-			taskList = append(taskList, task)
+		var tasks []models.Task
+		if err = cursor.All(ctx, &tasks); err != nil {
+			c.JSON(http.StatusInternalServerError, gin.H{"error": err.Error()})
+			return
 		}
 
-		c.JSON(http.StatusOK, taskList)
+		c.JSON(http.StatusOK, tasks)
 
 	}
 }
